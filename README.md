@@ -1,49 +1,52 @@
 # Asset Tracker API
 
-FastAPI backend with SQLite and SQLAlchemy ORM for tracking assets and valuations.
+A small FastAPI backend for tracking personal assets (watches, cars, hardware, knives) and their estimated values, stored in SQLite through the SQLAlchemy ORM.
 
-## Project Structure
+This is the first project in my FastAPI series. The follow-up, [gym-progress-api](https://github.com/emir-mehmedspahic/gym-progress-api), adds JWT authentication, nested relational data and a pytest suite.
 
-- `app/main.py` - FastAPI app and route handlers
-- `app/models.py` - SQLAlchemy database tables
-- `app/schemas.py` - Pydantic request/response validation
-- `app/database.py` - Database connection and session handling
+## Tech stack
 
-## Setup & Running
+FastAPI, SQLAlchemy, SQLite, Pydantic.
 
-1. Activate your virtual environment:
-   ```powershell
-   .\venv\Scripts\Activate.ps1
+## Project structure
 
-   Install dependencies:
+```
+app/
+├── main.py       # FastAPI app and route handlers
+├── models.py     # SQLAlchemy database tables
+├── schemas.py    # Pydantic request/response validation
+└── database.py   # Database connection and session handling
+```
 
-Bash
+## Setup
+
+```bash
+python -m venv venv
+source venv/bin/activate        # Windows PowerShell: .\venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-Run the development server:
+```
 
-Bash
+## Running
+
+```bash
 python -m uvicorn app.main:app --reload
-Open http://127.0.0.1:8000/docs to test endpoints via Swagger UI.
+```
 
-Endpoints
-GET /assets/ - Fetch all assets
+Open http://127.0.0.1:8000/docs to try the endpoints in Swagger UI. The SQLite file `asset_tracker.db` is created on first start and is git-ignored.
 
-POST /assets/ - Create a new asset
+## Endpoints
 
-Example JSON payload for POST:
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/assets/` | List all assets |
+| POST | `/assets/` | Create an asset |
 
-JSON
+Example `POST /assets/` body:
+
+```json
 {
   "name": "Orient Kamasu",
   "asset_type": "watch",
   "estimated_value": 280.0
 }
-
----
-
-Once you save that file, commit and push it up:
-
-```powershell
-git add README.md
-git commit -m "Update README formatting"
-git push
+```
